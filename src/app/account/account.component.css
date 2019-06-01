@@ -1,0 +1,9 @@
+.page {
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    right: 10%;
+    top: 80px;
+    height: 80%;
+    text-align: center;
+}

@@ -1,0 +1,22 @@
+const httpOptions = {
+      headers: new HttpHeaders({
+        'responseType' :'application/json',
+        'Access-Control-Allow-Credentials' : 'true',
+        'Access-Control-Allow-Origin': '*',
+         'Access-Control-Allow-Methods': 'GET',
+         'Access-Control-Allow-Headers': 'application/json',
+        //'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InJhcHBvcnRlbiI6W3sidmFra2VuIjpbeyJ2aXNpYmxlIjp0cnVlLCJ0b2V0c2VuIjpbeyJkYXR1bSI6IjIwMTktMDMtMTlUMTk6NTM6NTkuOTIyWiIsIl9pZCI6IjVjMGVkNWUyY2ZlNWMzMmE5NGI4NzNiNCIsInNjb3JlIjoxNSwibWF4c2NvcmUiOjIwLCJwcm9jZW50IjoiNzUifSx7ImRhdHVtIjoiMjAxOC0xMi0xMFQyMToxMDoyOS41NDlaIiwiX2lkIjoiNWMwZWQ2NTdmMjAyNjQzNzAwZDQ0OGY0Iiwic2NvcmUiOjEyLCJtYXhzY29yZSI6MTUsInByb2NlbnQiOiI3NSJ9LHsiZGF0dW0iOiIyMDE4LTEyLTEwVDIxOjE2OjQyLjQ1NloiLCJfaWQiOiI1YzBlZDdjOTQ4ODI2NTI4MTg2M2IzODMiLCJzY29yZSI6MTgsIm1heHNjb3JlIjoyMCwicHJvY2VudCI6Ijc1In0seyJkYXR1bSI6IjIwMTgtMTItMTBUMjE6MTc6MTcuMDU3WiIsIl9pZCI6IjVjMGVkN2VhMWYxNDQ5M2YzMGNiMTAwNyIsInNjb3JlIjoxMiwibWF4c2NvcmUiOjIwfSx7ImRhdHVtIjoiMjAxOC0xMi0xMFQyMToxNzo0NS43NDNaIiwiX2lkIjoiNWMwZWQ3ZmU0Y2QwMWQwOTE0ODhjY2MzIiwic2NvcmUiOjEyLCJtYXhzY29yZSI6MjAsInByb2NlbnQiOiI2MCJ9LHsiZGF0dW0iOiIyMDE5LTAzLTEzVDE2OjQ0OjIzLjU4M1oiLCJfaWQiOiI1Yzg5MzM4NGRmYWQzYTJhNmNhOTYwNjgiLCJzY29yZSI6NDAsIm1heHNjb3JlIjo1MCwicHJvY2VudCI6IjgwIn1dLCJfaWQiOiI1YzBlZDVjNmNmZTVjMzJhOTRiODczYjMiLCJuYWFtIjoiZ2VzY2hpZWRlbmlzIiwibGVzdXJlbiI6MiwidG90YWFsIjo4MH1dLCJfaWQiOiI1YzBlZDU4OGNmZTVjMzJhOTRiODczYjAiLCJ0b3RhYWwiOjkwLCJwZXJpb2RlIjoia2Vyc3RtaXMiLCJkYXR1bSI6IjIwMTgtMTItMTBUMjE6MDc6MjAuMDc2WiJ9XSwiX2lkIjoiNWMwZWQzZmNmMzFiNDgzNmY4NzI4NGI1IiwibmFtZSI6Im1vZGVsIiwicGFzc3dvcmQiOiIkMmIkMTIkUTk1cmRvNkFRQWRHeE5MRi9leFRHTzJSSE1FRWYyUkFPbEVPLkFXeHVBNXJoMmhiMTRCOHkiLCJlbWFpbCI6Im1vZGVsQG1haWwuY29tIiwic2luY2UiOiIyMDE4LTEyLTEwVDIxOjAwOjQ0LjAwNVoiLCJfX3YiOjAsInJpY2h0aW5nIjoid2V0ZW5zY2hhcHBlbiIsImtsYXMiOiI1TVRXZSIsInNjaG9vbCI6InNpbnRqYW5zY29sbGVnZSJ9LCJpYXQiOjE1NTMwMjUzNjd9.eOrRzTKWrH4SOSF67cjJn_cpgR2miBbEJcsIrjZ--80',
+        
+      })
+    };
+    this.http.get("http://localhost:3000/userinfo", httpOptions)
+      .subscribe(data => {
+          this.res = data;
+          console.log(this.res);
+      });
+
+
+
+      Use cookie.get(nameOfCookie) for getting a specific cookie, use cookie.set(nameOfCookie,cookieValue) for adding a new cookie
+
+      2019-03-21T20:13:46.000Z

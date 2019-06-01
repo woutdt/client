@@ -1,0 +1,27 @@
+<div class="page">
+  <div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+      <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-3 center">{{ rapportelement.periode }}</h5>
+        <small>{{ rapportelement.datum | date }}</small>
+      </div>
+      <p class="mb-1">{{ rapportelement.totaal }}</p>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let vak of rapportelement.vakken" [ngClass]="{ 'list-group-item-danger': vak.danger , 'list-group-item-warning': vak.warning }">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{vak.naam}}</h5>
+        <small class="text-muted">{{vak.lesuren}}u</small>
+      </div>
+      <p class="mb-1">{{vak.behaald }}/{{ vak.totaal}} = {{ vak.finale }}%</p>
+      &nbsp;&nbsp;-&nbsp;&nbsp;<small class="text-muted"><span *ngFor="let toets of vak.toetsen">{{toets.procent}}%&nbsp;&nbsp;-&nbsp;&nbsp;</span></small>
+    </a>
+    <a  class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Add Vak</h5>
+          <small class="text-muted"><input type="text" placeholder="naam" class="form-control" [(ngModel)]="name"><input type="text" placeholder="lesuren" class="form-control" [(ngModel)]="lesuren"></small>
+        </div>
+        <p class="mb-1">toetsen: <input type="text" placeholder="behaald/totaal_" class="form-control" title="behaald/totaal_" [(ngModel)]="toetsen"></p>
+        <small class="text-muted"><button  class="btn btn-primary mb-2" (click)="alert(rapportelement._id)">submit</button></small>
+      </a>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+
+<div class="page">
+    <div class="card-deck card-columns">
+        <div class="card border-primary mb-3" style="max-width: 18rem;" *ngFor="let rapport of res.rapporten">
+            <div class="card-header bold" (click)="openRapport(rapport._id)">{{rapport.periode | uppercase}}</div>
+            <div class="card-body" >
+            <h5 class="card-title" *ngIf="rapport.totaal != undefined">&nbsp;total: {{ rapport.totaal }}%</h5>
+            <h5 class="card-title" *ngIf="rapport.totaal == undefined" title="to be determined">&nbsp;total: TBD </h5>
+            <h6 class="card-title">{{ rapport.datum | date }}</h6>
+            <span (click)="openRapport(rapport._id)"><button type="button" class="btn btn-outline-primary">view <i class="fas fa-book-open"></i></button></span>
+            <span (click)="editFunc()"><button type="button" class="btn btn-outline-warning">edit <i class="fas fa-edit"></i></button></span>
+            <span (click)="deleteFunc(rapport._id)"><button type="button" class="btn btn-outline-danger btn-sm">Delete <i class="fas fa-trash-alt"></i></button></span>
+            </div>
+        </div>
+        <div class="card border-primary mb-3" style="max-width: 18rem;" [ngClass]="{ 'showcard': showcard, 'hidecard': !showcard  }">
+            <div class="card-header bold">Add Card</div>
+            <div class="card-body">
+            <p style="font-weight: bold"> Click on the blueberry!</p>
+            <span class="spannerd" (click)="addNewRapport()">
+                    <i class="fab fa-raspberry-pi"></i>
+            </span>
+            </div>
+        </div>
+        <div class="card border-primary mb-3" style="max-width: 18rem;" [ngClass]="{ 'showcard': !showcard, 'hidecard': showcard  }">
+            <div class="card-header bold">New Rapport<i class="fas fa-times" (click)='normalMode()'></i></div>
+            <div class="card-body">
+                <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+                    <div>
+                        <input type="text" class="form-control"  placeholder="Periode" formControlName="periode">
+                    </div>
+                    <button class="button btn btn-primary mb-2" type="submit">submit</button>
+                </form>
+            </div>
+        </div>
+        </div>
+</div>
