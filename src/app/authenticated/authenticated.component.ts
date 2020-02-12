@@ -25,7 +25,8 @@ export class AuthenticatedComponent implements OnInit {
   useless: any;
   rapportidObj: any;
   showedit: boolean;
-
+  show: any;
+  cookies: any;
 
   constructor(
     private cookie: CookieService,
@@ -46,7 +47,6 @@ export class AuthenticatedComponent implements OnInit {
     this.showedit = false;
 
   }
-
   identify() {
     
     const httpOptions = {

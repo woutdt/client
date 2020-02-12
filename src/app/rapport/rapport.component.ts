@@ -24,6 +24,7 @@ export class RapportComponent implements OnInit {
   i: number;
   f: number;
   c: number;
+  x: number;
   total: any;
   behaald: any;
   vak: any;
@@ -37,6 +38,12 @@ export class RapportComponent implements OnInit {
   body;
   body2;
   array2;
+  newvak: any;
+  toetsArray: any;
+  totalelesuren: any;
+  rapporttotaal: any;
+  vakpunten: any;
+  loopvak: any;
 
 
   constructor(
@@ -65,7 +72,6 @@ export class RapportComponent implements OnInit {
     this.http.get("http://localhost:3000/api/userinfo", httpOptions)
       .subscribe(data => {
           this.res = data;
-          console.log(this.res);
           this.identifyRapport();
       },
       error => {
@@ -78,6 +84,7 @@ export class RapportComponent implements OnInit {
     this.rapportid = this.cookie.get('rapport');
     this.rapportelement = this.arrayCheck(this.rapportid);
     this.vakTotaal(this.rapportelement);
+    this.rapportTotaal();
   }
 
   arrayCheck(id: any) {
@@ -95,21 +102,57 @@ export class RapportComponent implements OnInit {
       this.vak.finale = 0;
       this.vak.danger = false;
       this.vak.warning = false;
+      this.vak.success = false;
       for(this.f = 0; this.f < this.vak.toetsen.length; this.f++) {
         this.toets = this.vak.toetsen[this.f];
         this.vak.totaal = this.vak.totaal + this.toets.maxscore;
         this.vak.behaald = this.vak.behaald + this.toets.score;
         this.vak.finale = Math.floor(this.vak.behaald/this.vak.totaal * 100);
-        if(this.vak.finale < 50) {
-          this.vak.danger = true;
-        } else if(this.vak.finale == 50) {
-          this.vak.warning = true;
-        } else {
-          this.vak.danger = false;
-        };
       }
-      console.log(this.rapportelement.vakken[this.c]);
+      if(this.vak.finale < 50) {
+        this.vak.danger = true;
+      } else if(this.vak.finale == 50) {
+        this.vak.warning = true;
+     } else if(this.vak.finale == 100) {
+        this.vak.success = true;
+     } else {
+        this.vak.danger = false;
+      };
     }
+  }
+  rapportTotaal() {
+    this.vakpunten = 0;
+    this.totalelesuren = 0;
+    console.log(this.rapportelement)
+    for(this.x = 0; this.x < this.rapportelement.vakken.length; this.x++) {
+      this.loopvak = this.rapportelement.vakken[this.x];
+      if(this.loopvak.finale == undefined) {
+        console.log("no toets");
+      } else if(this.loopvak.finale) {
+        this.totalelesuren = this.totalelesuren + this.loopvak.lesuren;
+        this.vakpunten = this.vakpunten + (this.loopvak.finale * this.loopvak.lesuren);
+      };
+    };
+    this.rapporttotaal = Math.round(this.vakpunten / this.totalelesuren);
+    console.log(this.rapporttotaal)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'responseType' :'application/json',
+        'Access-Control-Allow-Credentials' : 'true',
+        'Access-Control-Allow-Origin': '*',
+         'Access-Control-Allow-Methods': 'GET',
+         'Access-Control-Allow-Headers': 'application/json',
+        'Authorization': 'Bearer '+this.cookie.get('jwt')
+      })
+    };
+    this.body = {
+      "rapportid": this.cookie.get('rapport'),
+      "nieuwtotaal": this.rapporttotaal
+    };
+    this.http.put('http://localhost:3000/api/rapportTotaal', this.body, httpOptions)
+      .subscribe(data => {
+        console.log(data)
+      });
   }
   
   alert(rapportid: any) {
@@ -128,23 +171,28 @@ export class RapportComponent implements OnInit {
     for(this.i = 0; this.i < this.split1.length; this.i++) {
       this.split2.push(this.split1[this.i].split("/"));
     }
-    console.log(this.split2);
     this.body = {
       "lesuren": this.lesuren,
       "name": this.name,
       "rapportid": rapportid
     };
     this.http.put('http://localhost:3000/api/rapportvak', this.body, httpOptions)
-      .subscribe(data => {
+      .subscribe(outcome => {
+        this.toetsArray = []
        for(this.i = 0; this.i < this.split2.length; this.i++) {
          this.array2 = this.split2[this.i];
          this.body2 = {
            "score": this.array2[0],
            "maxscore": this.array2[1],
            "rapportid": rapportid,
-           "vakname": this.name
-         }
+           "vakid": outcome
+         };
+         this.toetsArray.push(this.body2);
+         console.log(this.body2);
         this.http.put('http://localhost:3000/api/rapportvaktoets', this.body2, httpOptions)
+         .subscribe(data => {
+           this.ngOnInit();
+         });
        };
      });
   }

@@ -14,7 +14,7 @@ export class AppComponent {
             ) { }
 
   cookies: any;
-
+  show: any;
 
   ngOnInit() {
 
@@ -24,6 +24,13 @@ export class AppComponent {
 
   cookiesl() {
     this.cookies = this.cookie.get('jwt');
+    if(this.cookies == undefined) {
+      this.show = false;
+    } else if(this.cookies.length >= 10){
+      this.show = true;
+    } else {
+      this.show = false;
+    }
   }
 
 

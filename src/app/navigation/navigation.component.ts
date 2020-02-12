@@ -15,6 +15,8 @@ export class NavigationComponent implements OnInit {
   user: any;
   res: any;
   error: any;
+  show: any;
+  cookies: any;
 
   constructor(
     private cookie: CookieService,
@@ -27,7 +29,16 @@ export class NavigationComponent implements OnInit {
     this.identify();
 
   }
-
+  cookiesl() {
+    this.cookies = this.cookie.get('jwt');
+    if(this.cookies == undefined) {
+      this.show = false;
+    } else if(this.cookies.length >= 10){
+      this.show = true;
+    } else {
+      this.show = false;
+    }
+  };
   identify() {
 
     const httpOptions = {
@@ -67,4 +78,7 @@ export class NavigationComponent implements OnInit {
     this.router.navigate(['/authenticated']);
   }
 
+  help() {
+    window.alert("Soms moet je eens refreshen: het programma heeft waarschijnlijk jouw opdracht al verwerkt maar toont dit nog niet op de 'client' \n \n © Wout De Tollenaere")
+  }
 }

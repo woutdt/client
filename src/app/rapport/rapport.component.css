@@ -11,3 +11,16 @@
     color: green;
     cursor: pointer;
 }
+.not-active {
+    pointer-events: none;
+    cursor: default;
+}
+.topper {
+    color: white;
+}
+.warningSelf {
+    color: orangered !important;
+}
+.dangerSelf {
+    color: red !important;
+}

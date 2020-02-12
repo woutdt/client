@@ -4,18 +4,18 @@
         <div class="card border-primary mb-3" style="max-width: 18rem;" *ngFor="let rapport of res.rapporten">
             <div class="card-header bold" (click)="openRapport(rapport._id)">{{rapport.periode | uppercase}}</div>
             <div class="card-body" >
-            <h5 class="card-title" *ngIf="rapport.totaal != undefined">&nbsp;total: {{ rapport.totaal }}%</h5>
-            <h5 class="card-title" *ngIf="rapport.totaal == undefined" title="to be determined">&nbsp;total: TBD </h5>
-            <h6 class="card-title">{{ rapport.datum | date }}</h6>
+            <h5 class="card-title" *ngIf="rapport.totaal != undefined">&nbsp;<i class="fas fa-medal"></i>&nbsp;{{ rapport.totaal }}%</h5>
+            <h5 class="card-title" *ngIf="rapport.totaal == undefined" title="to be determined">&nbsp;totaal: TBD </h5>
+            <h6 class="card-title"><i class="fas fa-table"></i>&nbsp;{{ rapport.datum | date }}</h6>
             <span (click)="openRapport(rapport._id)"><button type="button" class="btn btn-outline-primary">view <i class="fas fa-book-open"></i></button></span>
             <span (click)="editFunc()"><button type="button" class="btn btn-outline-warning">edit <i class="fas fa-edit"></i></button></span>
             <span (click)="deleteFunc(rapport._id)"><button type="button" class="btn btn-outline-danger btn-sm">Delete <i class="fas fa-trash-alt"></i></button></span>
             </div>
         </div>
         <div class="card border-primary mb-3" style="max-width: 18rem;" [ngClass]="{ 'showcard': showcard, 'hidecard': !showcard  }">
-            <div class="card-header bold">Add Card</div>
+            <div class="card-header bold">toevoegen</div>
             <div class="card-body">
-            <p style="font-weight: bold"> Click on the blueberry!</p>
+            <p style="font-weight: bold"> Click op de blueberry!</p>
             <span class="spannerd" (click)="addNewRapport()">
                     <i class="fab fa-raspberry-pi"></i>
             </span>

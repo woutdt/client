@@ -1,27 +1,29 @@
 <div class="page">
   <div class="list-group">
-    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+    <a  class="list-group-item list-group-item-action flex-column align-items-start active topper">
       <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-3 center">{{ rapportelement.periode }}</h5>
-        <small>{{ rapportelement.datum | date }}</small>
+          <h5 class="mb-3 center" style="color: white"><i class="far fa-calendar-times"></i>&nbsp;{{ rapportelement.periode }}</h5>
+        <small style="color: white">{{ rapportelement.datum | date }}</small>
       </div>
-      <p class="mb-1">{{ rapportelement.totaal }}</p>
+      <p class="mb-1" style="font-size: 1.5em; color: white">{{ rapportelement.totaal }}%</p>
     </a>
-    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let vak of rapportelement.vakken" [ngClass]="{ 'list-group-item-danger': vak.danger , 'list-group-item-warning': vak.warning }">
+    <a class="list-group-item list-group-item-action flex-column align-items-start justify-content-between" *ngFor="let vak of rapportelement.vakken" [ngClass]="{'list-group-item-danger': vak.danger, 'list-group-item-warning': vak.warning, 'list-group-item-success': vak.success}">
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{vak.naam}}</h5>
-        <small class="text-muted">{{vak.lesuren}}u</small>
+        <span class="badge badge-info badge-pill" title="aantal lesuren">{{vak.lesuren}}</span>
       </div>
-      <p class="mb-1">{{vak.behaald }}/{{ vak.totaal}} = {{ vak.finale }}%</p>
-      &nbsp;&nbsp;-&nbsp;&nbsp;<small class="text-muted"><span *ngFor="let toets of vak.toetsen">{{toets.procent}}%&nbsp;&nbsp;-&nbsp;&nbsp;</span></small>
+      <p class="mb-1"><span *ngFor="let toets of vak.toetsen; last as isLast">{{toets.procent}}%&nbsp;&nbsp;<span *ngIf="!isLast">+</span><span *ngIf="isLast">= &nbsp;</span></span><span>{{ vak.finale }}</span>%</p>
+      <a ><i class="fas fa-trash" style="color: red"></i></a>&nbsp;&nbsp;<a><i class="fas fa-edit" style="color: darkorange"></i></a>
     </a>
     <a  class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">Add Vak</h5>
           <small class="text-muted"><input type="text" placeholder="naam" class="form-control" [(ngModel)]="name"><input type="text" placeholder="lesuren" class="form-control" [(ngModel)]="lesuren"></small>
         </div>
-        <p class="mb-1">toetsen: <input type="text" placeholder="behaald/totaal_" class="form-control" title="behaald/totaal_" [(ngModel)]="toetsen"></p>
-        <small class="text-muted"><button  class="btn btn-primary mb-2" (click)="alert(rapportelement._id)">submit</button></small>
+        <p class="mb-1">toetsen: <input type="text" placeholder="behaald/totaal_" class="form-control" title="behaald/totaal_" style="width: 50%; left: 50%; position: relative; transform: translateX(-50%);" [(ngModel)]="toetsen"></p>
+        <small class="text-muted"><button  class="btn btn-outline-primary mb-2" (click)="alert(rapportelement._id)">submit</button></small>
+        &nbsp;&nbsp;
+        <small class="text-muted"><button type="button" class="btn btn-outline-warning mb-2"><i class="fas fa-info-circle"></i></button></small>
       </a>
   </div>
 </div>

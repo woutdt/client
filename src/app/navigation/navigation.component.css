@@ -27,3 +27,6 @@
 a {
     cursor: pointer;
 }
+.btn {
+    margin-right: 10px;
+}
